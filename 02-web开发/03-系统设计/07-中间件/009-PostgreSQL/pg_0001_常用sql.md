@@ -1,38 +1,30 @@
 * **sql 实现字段增加固定天数：**
   https://cloud.tencent.com/developer/ask/sof/591359
-
-  ~~~sql
+~~~sql
   update dgis_datamanager_model_life_time set data_cyle_time = data_create_time +  INTERVAL '7 days' 
   where data_mesuccess_time = '2022-04-06 14:14:57.101'
-  ~~~
-
-  
+~~~
 
 * **查询连接数 & 关闭连接方法**
-
-  ~~~ sql
+~~~ sql
   -- 查询连接
   select * from pg_stat_activity;
   
   -- 关闭连接
-  ~~~
+~~~
 
 * **多行转一行**
-
 ~~~ sql
 select string_agg(column_name,split_char) from table
 ~~~
 
-
 * **计算时间差**
-
 ~~~ sql
 -- column_name 查询的列名 ，为timestamp格式时 转换为 天数
 SELECT now( ) - ( column_name / 1000 / 60 / 60 / 24 || ' day' ) :: INTERVAL from table_name
 ~~~
 
 * **字符串分割**
-
 ~~~ sql
 --1.  SPLIT_PART
 -- string : 待分割的字符串
@@ -61,14 +53,12 @@ select regexp_matches('hello how are you', 'h[a-z]*', 'g')   as words_starting_w
 ~~~
 
 * **insert select巧用**
-
 ~~~sql
 -- 字段值可以是定值 eg: INSERT INTO user select '1' as id, 'zhangsan' as name from user_old;
 INSERT INTO {表1} SELECT {字段1} as {表1字段1},  {字段2} as {表1字段2} FROM {表2};
 ~~~
 
 * 锁表查询
-
 ~~~sql
 -- 查询ACTIVITY的状态等信息
 select T.PID, T.STATE, T.QUERY, T.WAIT_EVENT_TYPE, T.WAIT_EVENT,
@@ -88,25 +78,37 @@ select PG_CANCEL_BACKEND('6984');
 ~~~
 
 * **小数保留指的位数**
+~~~sql
+select CAST(col_name as NUMERIC(10, 4)) from db_name
+~~~
 
-  ~~~sql
-  select CAST(col_name as NUMERIC(10, 4)) from db_name
-  ~~~
+* pg 通过虚拟行号进行去重
+~~~sql
+select * from (
+select col_1,col_2,..., row_number() over(partition by 字段1,字段2,... order by xxx) as row_num
 
-* pg通过虚拟行号进行去重
+) tmp where row_num = 1;
+~~~
 
-  ~~~sql
-  select * from (
-  	select col_1,col_2,..., row_number() over(partition by 字段1,字段2,... order by xxx) as row_num
+* pg 导入csv文件
+~~~sql
+COPY your_table_name FROM '/path/to/your/file.csv' DELIMITER ',' CSV HEADER;
+~~~
+
+* pg 相同数据库服务，跨库同步表数据
+~~~bash
+pg_dump -U username -d database_name -t table_name > output_file.sql
+psql -U username -d target_database_name -f output_file.sql
+~~~
   
-  ) tmp where row_num = 1;
-  ~~~
+* pg 字符串截断
+~~~sql
+SELECT SUBSTRING('string' FROM 1 FOR 6);
+~~~
 
-* pg导入csv文件
-
-  ~~~sql
-  
-  COPY your_table_name FROM '/path/to/your/file.csv' DELIMITER ',' CSV HEADER;
-  ~~~
-  
-  
+* pg 查询所有表名
+~~~sql
+SELECT table_name
+FROM information_schema.tables
+WHERE table_schema = 'public';
+~~~
