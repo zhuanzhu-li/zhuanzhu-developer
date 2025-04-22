@@ -7,7 +7,7 @@ apk add jattach-1.5-r0.apk
 
 
 # dump heap
-jattach 1 dumpheap /opt/app/dumpheap.hprof
+jattach 1 dumpheap /opt/dumpheap.hprof
 jattach 1 threaddump > /opt/app/threaddump.hprof
 
 ```
