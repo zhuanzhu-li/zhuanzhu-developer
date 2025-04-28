@@ -20,7 +20,10 @@ java -jar arthas-boot.jar 1
 # 300s
 profiler start --duration 3000
 ~~~
-![arthas分析代码cpu占有率.png](..\..\resource\screenshot\arthas分析代码cpu占有率.png)
+![arthas分析代码cpu占有率.png](../../resource/screenshot/arthas分析代码cpu占有率.png)
+
+
+
 ### 将输出的html打开
 呈现如下火焰图，具体分析即可
-![arthas分析生成的火焰图.png](..\..\resource\screenshot\arthas分析生成的火焰图.png)
+![arthas分析生成的火焰图.png](../../resource/screenshot/arthas分析生成的火焰图.png)
