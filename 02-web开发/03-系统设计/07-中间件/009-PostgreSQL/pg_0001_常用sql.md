@@ -100,7 +100,7 @@ COPY your_table_name FROM '/path/to/your/file.csv' DELIMITER ',' CSV HEADER;
 pg_dump -U username -d database_name -t table_name > output_file.sql
 psql -U username -d target_database_name -f output_file.sql
 ~~~
-  
+
 * pg 字符串截断
 ~~~sql
 SELECT SUBSTRING('string' FROM 1 FOR 6);
@@ -112,3 +112,12 @@ SELECT table_name
 FROM information_schema.tables
 WHERE table_schema = 'public';
 ~~~
+
+* 查询正在运行中的sql
+
+~~~sql
+SELECT pid, usename, datname, client_addr, state, query, query_start 
+FROM pg_stat_activity 
+WHERE state = 'active';
+~~~
+
