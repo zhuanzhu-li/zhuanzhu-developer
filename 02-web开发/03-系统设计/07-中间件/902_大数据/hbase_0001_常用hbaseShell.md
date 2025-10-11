@@ -77,4 +77,4 @@ scan 表名
 get 'DTSW_TEST:default_interference_wms_ltenr_ptosector_cellvalue_2024073143d','layerInfoRowKey'
 ```
 
-
+hdfs dfs -setrep -R -w 3

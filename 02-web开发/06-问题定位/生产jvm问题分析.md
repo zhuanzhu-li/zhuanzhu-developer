@@ -25,7 +25,7 @@ jattach 1 threaddump > /opt/app/threaddump.hprof
   ~~~sh
   jmap -heap <pid>      # 查看堆内存配置与使用情况
   jmap -histo:live <pid> # 统计堆中存活对象分布（谨慎使用，触发 Full GC）
-  jmap -histo:live 1 | head 10 # 查看对象前十
+  jmap -histo:live 1 | head -n 10 # 查看对象前十
   ~~~
 
   **`jcmd`（多功能诊断）**
