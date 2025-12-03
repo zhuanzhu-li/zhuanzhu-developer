@@ -19,3 +19,9 @@ Re-login from keytab for multiple UGI will use the same and incorrect keytabPrin
 
 解决方案
 
+~~~
+export HADOOP_CLIENT_OPTS="-Xmx4g"
+~~~
+
+
+
